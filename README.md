@@ -17,4 +17,4 @@
 - [x] docker
 - [ ] CircleCI
 - [ ] Vercel
-- [ ] AWS
+- [ ] Heroku
