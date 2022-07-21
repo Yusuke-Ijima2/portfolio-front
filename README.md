@@ -3,7 +3,7 @@
 ### frontend
 
 - [x] next.js
-- [ ] tailwindcss
+- [x] tailwindcss
 - [ ] jest
 
 ### backend
@@ -16,5 +16,5 @@
 
 - [x] docker
 - [ ] CircleCI
-- [ ] Vercel
-- [ ] Heroku
+- [x] Vercel
+- [x] Heroku
