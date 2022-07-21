@@ -39,7 +39,7 @@ export default function Layout(props) {
               width={144}
               alt={name}
             />
-            <h1 className={utilStyles.heading2Xl}>{name}</h1>
+            <h1 className="font-300000">{name}</h1>
           </>
         ) : (
           <>

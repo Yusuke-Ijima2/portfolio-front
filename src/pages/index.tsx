@@ -24,6 +24,10 @@ export async function getServerSideProps() {
 export default function Home({ allPostsData }) {
   return (
     <Layout home>
+      <p className="bg-blue-500 bg-opacity-100">Hello world!</p>
+      <h1 className="... rotate-180 transform">
+        Welcome to <a href="https://nextjs.org">Next.js!</a>
+      </h1>
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
         <h2 className={utilStyles.headingLg}>Blog</h2>
         <ul className={utilStyles.list}>

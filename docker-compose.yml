@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - ./app:/usr/src/app
+      - ./src:/usr/src/app
     command: sh -c "yarn install && yarn dev" #volumesを./appにしているのでそのままyarn install
     ports:
       - "3000:3000"
