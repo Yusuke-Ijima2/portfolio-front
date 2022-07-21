@@ -4,6 +4,7 @@ parser: "@typescript-eslint/parser"
 plugins:
   - "@typescript-eslint"
   - jest
+  - prettier
 extends:
   - eslint:recommended
   - plugin:@typescript-eslint/eslint-recommended
@@ -12,3 +13,8 @@ extends:
   - plugin:react-hooks/recommended
   - plugin:jest/recommended
   - prettier
+  - plugin:tailwindcss/recommended
+ignorePatterns:
+  - "*.config.js"
+rules:
+  prettier/prettier: error
