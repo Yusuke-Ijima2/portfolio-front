@@ -9,4 +9,4 @@ services:
       - ./src:/usr/src/app
     command: sh -c "yarn install && yarn dev" #volumesを./appにしているのでそのままyarn install
     ports:
-      - "9000:3000"
+      - "3000:3000"
