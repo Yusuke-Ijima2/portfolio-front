@@ -1,111 +1,159 @@
-import React from "react";
-import { useForm } from "react-hook-form";
-import { SignUpParams } from "types/index";
-import { signUp } from "lib/api/user/auth";
+import React, { useState, useContext } from "react";
+import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 
+import { AuthContext } from "pages/_app";
+import { signUp } from "lib/api/auth";
+import { SignUpParams } from "types/index";
+
+// サインアップ用ページ
 const SignUp: React.FC = () => {
   const router = useRouter();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<SignUpParams>({
-    mode: "onSubmit",
-    defaultValues: {
-      name: "",
-      email: "",
-      password: "",
-      passwordConfirmation: "",
-    },
-  });
 
-  const onSubmit = handleSubmit(async (data: SignUpParams) => {
-    const res = await signUp(data);
-    // 200 が返ってきたら登録成功
-    if (res?.status === 200) {
-      alert("ユーザー登録完了");
-      router.push({
-        pathname: "/",
-      });
+  const { setIsSignedIn, setCurrentUser } = useContext(AuthContext);
+
+  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [passwordConfirmation, setPasswordConfirmation] = useState<string>("");
+  const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
+
+  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    console.log("submit");
+
+    e.preventDefault();
+
+    const params: SignUpParams = {
+      name: name,
+      email: email,
+      password: password,
+      passwordConfirmation: passwordConfirmation,
+    };
+    console.log(params);
+
+    try {
+      const res = await signUp(params);
+      console.log(res.status);
+
+      if (res.status === 200) {
+        // アカウント作成と同時にログインさせてしまう
+        // 本来であればメール確認などを挟むべきだが、今回はサンプルなので
+        Cookies.set("_access_token", res.headers["access-token"]);
+        Cookies.set("_client", res.headers["client"]);
+        Cookies.set("_uid", res.headers["uid"]);
+
+        setIsSignedIn(true);
+        setCurrentUser(res.data.data);
+
+        router.push("/home");
+
+        console.log("Signed in successfully!");
+      } else {
+        setAlertMessageOpen(true);
+      }
+    } catch (err) {
+      console.log(err);
+      setAlertMessageOpen(true);
     }
-  });
+  };
 
   return (
     <>
-      <div>
-        <form onSubmit={onSubmit}>
-          <div>
-            <label>name</label>
-            <input
-              className="border-2 border-black"
-              id="name"
-              type="text"
-              {...register("name", {
-                required: "※必須項目です",
-                maxLength: {
-                  value: 20,
-                  message: "※20文字以内で入力してください",
-                },
-              })}
-            />
-            <span>{errors.name?.message}</span>
-            <br></br>
+      <form noValidate autoComplete="off">
+        <label>name</label>
+        <input
+          id="name"
+          type="name"
+          onChange={(event) => setName(event.target.value)}
+        />
+        <br />
+        {/* <TextField
+              variant="outlined"
+              required
+              fullWidth
+              label="Name"
+              value={name}
+              margin="dense"
+              onChange={event => setName(event.target.value)}
+            /> */}
+        <label>email</label>
+        <input
+          id="email"
+          type="email"
+          onChange={(event) => setEmail(event.target.value)}
+        />
+        <br />
 
-            <label>email</label>
-            <input
-              className="border-2 border-black"
-              id="email"
-              type="email"
-              {...register("email", {
-                required: "※必須項目です",
-                maxLength: {
-                  value: 50,
-                  message: "※50文字以内で入力してください",
-                },
-              })}
-            />
-            <span>{errors.email?.message}</span>
+        {/* <TextField
+              variant="outlined"
+              required
+              fullWidth
+              label="Email"
+              value={email}
+              margin="dense"
+              onChange={event => setEmail(event.target.value)}
+            /> */}
+        <label>password</label>
+        <input
+          id="password"
+          type="password"
+          onChange={(event) => setPassword(event.target.value)}
+        />
+        <br />
 
-            <br></br>
-            <label>password</label>
-            <input
-              className="border-2 border-black"
-              id="password"
+        {/* <TextField
+              variant="outlined"
+              required
+              fullWidth
+              label="Password"
               type="password"
-              {...register("password", {
-                required: "※必須項目です",
-                minLength: {
-                  value: 6,
-                  message: "6文字以上で入力してください",
-                },
-              })}
-            />
-            <span>{errors.password?.message}</span>
-            <br></br>
-
-            <label>password(Confirm)</label>
-            <input
-              className="border-2 border-black"
-              id="passwordConfirmation"
+              value={password}
+              margin="dense"
+              autoComplete="current-password"
+              onChange={event => setPassword(event.target.value)}
+            /> */}
+        <label>password Confirmation</label>
+        <input
+          id="passwordConfirmation"
+          type="password"
+          onChange={(event) => setPasswordConfirmation(event.target.value)}
+        />
+        {/* <TextField
+              variant="outlined"
+              required
+              fullWidth
+              label="Password Confirmation"
               type="password"
-              {...register("passwordConfirmation", {
-                required: "※必須項目です",
-                minLength: {
-                  value: 6,
-                  message: "※6文字以上で入力してください",
-                },
-              })}
-            />
-            <span>{errors.passwordConfirmation?.message}</span>
+              value={passwordConfirmation}
+              margin="dense"
+              autoComplete="current-password"
+              onChange={event => setPasswordConfirmation(event.target.value)}
+            /> */}
+        <br />
 
-            <br></br>
-            <button className="border-2 border-black" type="submit">
-              新規登録
-            </button>
-          </div>
-        </form>
-      </div>
+        <button
+          type="submit"
+          disabled={
+            !name || !email || !password || !passwordConfirmation ? true : false
+          }
+          onClick={handleSubmit}
+        >
+          新規作成
+        </button>
+        {/* <Button
+              type="submit"
+              variant="contained"
+              size="large"
+              fullWidth
+              color="default"
+              disabled={!name || !email || !password || !passwordConfirmation ? true : false}
+              className={classes.submitBtn}
+              onClick={handleSubmit}
+            >
+              Submit
+            </Button> */}
+        {alertMessageOpen && <p>エラー</p>}
+      </form>
     </>
   );
 };
