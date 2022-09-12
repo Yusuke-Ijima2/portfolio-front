@@ -17,6 +17,7 @@ const SignUp: React.FC = () => {
   const [password, setPassword] = useState<string>("");
   const [passwordConfirmation, setPasswordConfirmation] = useState<string>("");
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
+  const [errorMessages, setErrorMessages] = useState<string[]>([]);
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     console.log("submit");
@@ -53,6 +54,9 @@ const SignUp: React.FC = () => {
       }
     } catch (err) {
       console.log(err);
+      const errorMessages = err.response.data.errors.fullMessages;
+      console.log(errorMessages);
+      setErrorMessages(errorMessages);
       setAlertMessageOpen(true);
     }
   };
@@ -67,15 +71,7 @@ const SignUp: React.FC = () => {
           onChange={(event) => setName(event.target.value)}
         />
         <br />
-        {/* <TextField
-              variant="outlined"
-              required
-              fullWidth
-              label="Name"
-              value={name}
-              margin="dense"
-              onChange={event => setName(event.target.value)}
-            /> */}
+
         <label>email</label>
         <input
           id="email"
@@ -84,15 +80,6 @@ const SignUp: React.FC = () => {
         />
         <br />
 
-        {/* <TextField
-              variant="outlined"
-              required
-              fullWidth
-              label="Email"
-              value={email}
-              margin="dense"
-              onChange={event => setEmail(event.target.value)}
-            /> */}
         <label>password</label>
         <input
           id="password"
@@ -101,34 +88,12 @@ const SignUp: React.FC = () => {
         />
         <br />
 
-        {/* <TextField
-              variant="outlined"
-              required
-              fullWidth
-              label="Password"
-              type="password"
-              value={password}
-              margin="dense"
-              autoComplete="current-password"
-              onChange={event => setPassword(event.target.value)}
-            /> */}
         <label>password Confirmation</label>
         <input
           id="passwordConfirmation"
           type="password"
           onChange={(event) => setPasswordConfirmation(event.target.value)}
         />
-        {/* <TextField
-              variant="outlined"
-              required
-              fullWidth
-              label="Password Confirmation"
-              type="password"
-              value={passwordConfirmation}
-              margin="dense"
-              autoComplete="current-password"
-              onChange={event => setPasswordConfirmation(event.target.value)}
-            /> */}
         <br />
 
         <button
@@ -140,19 +105,8 @@ const SignUp: React.FC = () => {
         >
           新規作成
         </button>
-        {/* <Button
-              type="submit"
-              variant="contained"
-              size="large"
-              fullWidth
-              color="default"
-              disabled={!name || !email || !password || !passwordConfirmation ? true : false}
-              className={classes.submitBtn}
-              onClick={handleSubmit}
-            >
-              Submit
-            </Button> */}
-        {alertMessageOpen && <p>エラー</p>}
+        {alertMessageOpen &&
+          errorMessages.map((errorMessage) => <li>{errorMessage}</li>)}
       </form>
     </>
   );

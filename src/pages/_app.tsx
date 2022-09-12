@@ -48,22 +48,6 @@ const App = ({ Component, pageProps }) => {
     handleGetCurrentUser();
   }, [setCurrentUser]);
 
-  // ユーザーが認証済みかどうかでルーティングを決定
-  // 未認証だった場合は「/signin」ページに促す
-  const Private = ({ children }: { children: React.ReactElement }) => {
-    if (!loading) {
-      if (isSignedIn) {
-        return children;
-      } else {
-        return router.push({
-          pathname: "users/auth/signin",
-        });
-      }
-    } else {
-      return <></>;
-    }
-  };
-
   return (
     <AuthContext.Provider
       value={{

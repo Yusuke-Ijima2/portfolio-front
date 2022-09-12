@@ -15,6 +15,7 @@ const SignIn: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
+  const [errorMessages, setErrorMessages] = useState<string[]>([]);
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -44,7 +45,10 @@ const SignIn: React.FC = () => {
         setAlertMessageOpen(true);
       }
     } catch (err) {
-      console.log(err);
+      // const errorMessages = err.response.data.errors.fullMessages;
+      const errorMessages = err.response.data.errors;
+      console.log(errorMessages);
+      setErrorMessages(errorMessages);
       setAlertMessageOpen(true);
     }
   };
@@ -60,15 +64,6 @@ const SignIn: React.FC = () => {
         />
         <br />
 
-        {/* <TextField
-            variant="outlined"
-            required
-            fullWidth
-            label="Email"
-            value={email}
-            margin="dense"
-            onChange={(event) => setEmail(event.target.value)}
-          /> */}
         <label>password</label>
         <input
           id="password"
@@ -77,18 +72,6 @@ const SignIn: React.FC = () => {
         />
         <br />
 
-        {/* <TextField
-            variant="outlined"
-            required
-            fullWidth
-            label="Password"
-            type="password"
-            placeholder="At least 6 characters"
-            value={password}
-            margin="dense"
-            autoComplete="current-password"
-            onChange={(event) => setPassword(event.target.value)}
-          /> */}
         <button
           type="submit"
           disabled={!email || !password ? true : false}
@@ -96,34 +79,9 @@ const SignIn: React.FC = () => {
         >
           ログイン
         </button>
-        {/* <Button
-            type="submit"
-            variant="contained"
-            size="large"
-            fullWidth
-            color="default"
-            disabled={!email || !password ? true : false} // 空欄があった場合はボタンを押せないように
-            className={classes.submitBtn}
-            onClick={handleSubmit}
-          >
-            Submit
-          </Button> */}
-        {/* <Box textAlign="center" className={classes.box}>
-            <Typography variant="body2">
-              Don't have an account? &nbsp;
-              <Link to="/signup" className={classes.link}>
-                Sign Up now!
-              </Link>
-            </Typography>
-          </Box> */}
+        {alertMessageOpen &&
+          errorMessages.map((errorMessage) => <li>{errorMessage}</li>)}
       </form>
-      {/* <AlertMessage // エラーが発生した場合はアラートを表示
-        open={alertMessageOpen}
-        setOpen={setAlertMessageOpen}
-        severity="error"
-        message="Invalid emai or password"
-      /> */}
-      {alertMessageOpen && <p>エラー</p>}
     </>
   );
 };
