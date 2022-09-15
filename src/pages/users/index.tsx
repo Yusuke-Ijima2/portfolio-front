@@ -16,17 +16,14 @@ const UserIndex: React.VFC = () => {
 
   return (
     <>
-      <div>テスト用ユーザー一覧表示</div>
+      <h1>テスト用:ユーザー一覧表示</h1>
       <div className="text-sm text-gray-500">
         {users !== undefined &&
-          users.map((userList: User) => (
-            <div key={userList.id}>
-              <div>
-                <div>{userList.name}</div>
-              </div>
-              <div>
-                <div>{userList.email}</div>
-              </div>
+          users.map((user: User) => (
+            <div key={user.id}>
+              <div>{user.name}</div>
+              <div>{user.email}</div>
+              <br />
             </div>
           ))}
       </div>

@@ -45,7 +45,6 @@ const SignIn: React.FC = () => {
         setAlertMessageOpen(true);
       }
     } catch (err) {
-      // const errorMessages = err.response.data.errors.fullMessages;
       const errorMessages = err.response.data.errors;
       console.log(errorMessages);
       setErrorMessages(errorMessages);
