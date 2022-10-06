@@ -32,6 +32,11 @@ export const getCurrentUser = () => {
     !Cookies.get("_uid")
   )
     return;
+
+  console.log(Cookies.get("_access_token"));
+  console.log(Cookies.get("_client"));
+  console.log(Cookies.get("_uid"));
+
   return client.get("/auth/sessions", {
     headers: {
       "access-token": Cookies.get("_access_token"),
