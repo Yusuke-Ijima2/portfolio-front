@@ -24,28 +24,22 @@ const App = ({ Component, pageProps }) => {
   // 認証済みのユーザーがいるかどうかチェック
   // 確認できた場合はそのユーザーの情報を取得
   const handleGetCurrentUser = async () => {
-    try {
-      const res = await getCurrentUser();
-      console.log(res);
+    const res = await getCurrentUser();
+    console.log(res.data.data);
+    console.log("test");
 
+    if (res?.data.isLogin === true) {
       setIsSignedIn(true);
       setCurrentUser(res.data.data);
-      // if (res?.data.isLogin === true) {
-
-      //   console.log(res?.data.data);
-      // } else {
-      //   console.log("No current user");
-      // }
-    } catch (err) {
-      console.log(err);
+    } else {
+      // console.log("No current user");
     }
-
     setLoading(false);
   };
 
   useEffect(() => {
     handleGetCurrentUser();
-  }, [setCurrentUser]);
+  }, []);
 
   return (
     <AuthContext.Provider

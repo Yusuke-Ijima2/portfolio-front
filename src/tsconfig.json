@@ -21,7 +21,8 @@
     "**/*.ts",
     "**/*.tsx",
     "pages/posts/[id].js",
-    "lib/posts.js"
+    "lib/posts.js",
+    "pages/home/testpage/test1.jsx"
   ],
   "exclude": ["node_modules"]
 }

@@ -28,7 +28,6 @@ const SignIn: React.FC = () => {
     try {
       const res = await signIn(params);
 
-      console.log(res);
       if (res.status === 200) {
         // ログインに成功した場合はCookieに各値を格納
         Cookies.set("_access_token", res.headers["access-token"]);
@@ -40,13 +39,13 @@ const SignIn: React.FC = () => {
 
         router.push("/home");
 
-        console.log("Signed in successfully!");
+        // console.log("Signed in successfully!");
       } else {
         setAlertMessageOpen(true);
       }
     } catch (err) {
       const errorMessages = err.response.data.errors;
-      console.log(errorMessages);
+      // console.log(errorMessages);
       setErrorMessages(errorMessages);
       setAlertMessageOpen(true);
     }

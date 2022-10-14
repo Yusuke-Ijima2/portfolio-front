@@ -20,7 +20,7 @@ const SignUp: React.FC = () => {
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    console.log("submit");
+    // console.log("submit");
 
     e.preventDefault();
 
@@ -30,11 +30,11 @@ const SignUp: React.FC = () => {
       password: password,
       passwordConfirmation: passwordConfirmation,
     };
-    console.log(params);
+    // console.log(params);
 
     try {
       const res = await signUp(params);
-      console.log(res.status);
+      // console.log(res.status);
 
       if (res.status === 200) {
         // アカウント作成と同時にログインさせてしまう
@@ -48,14 +48,14 @@ const SignUp: React.FC = () => {
 
         router.push("/home");
 
-        console.log("Signed in successfully!");
+        // console.log("Signed in successfully!");
       } else {
         setAlertMessageOpen(true);
       }
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       const errorMessages = err.response.data.errors.fullMessages;
-      console.log(errorMessages);
+      // console.log(errorMessages);
       setErrorMessages(errorMessages);
       setAlertMessageOpen(true);
     }
