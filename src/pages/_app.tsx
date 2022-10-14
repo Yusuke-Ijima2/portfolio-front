@@ -12,7 +12,7 @@ export const AuthContext = createContext(
     isSignedIn: boolean;
     setIsSignedIn: React.Dispatch<React.SetStateAction<boolean>>;
     currentUser: User | undefined;
-    setCurrentUser: React.Dispatch<React.SetStateAction<User | undefined>>;
+    setCurrentUser: React.Dispatch<React.SetStateAction<User>>;
   }
 );
 
@@ -25,10 +25,10 @@ const App = ({ Component, pageProps }) => {
   // 確認できた場合はそのユーザーの情報を取得
   const handleGetCurrentUser = async () => {
     const res = await getCurrentUser();
-    console.log(res.data.data);
-    console.log("test");
+    // console.log("test");
 
     if (res?.data.isLogin === true) {
+      console.log(res.data);
       setIsSignedIn(true);
       setCurrentUser(res.data.data);
     } else {
