@@ -27,6 +27,7 @@ const SignIn: React.FC = () => {
 
     try {
       const res = await signIn(params);
+      console.log(res.status);
 
       if (res.status === 200) {
         // ログインに成功した場合はCookieに各値を格納
