@@ -57,7 +57,7 @@ const Home: React.FC = () => {
     <>
       {isSignedIn && currentUser ? (
         <>
-          <h1>Signed in successfully!</h1>
+          <h1>ホーム</h1>
           <h2>Email: {currentUser?.email}</h2>
           <h2>Name: {currentUser?.name}</h2>
           <button onClick={goToTest1}>goToTest1</button>
