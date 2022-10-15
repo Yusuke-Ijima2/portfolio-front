@@ -15,7 +15,7 @@ const Test1 = () => {
     <>
       <h1>test1</h1>
       <button onClick={goToHome}>goToHome</button>
-      <p onClick={goToHome}>{currentUser.email}</p>
+      {currentUser && <p onClick={goToHome}>{currentUser.email}</p>}
     </>
   );
 };
