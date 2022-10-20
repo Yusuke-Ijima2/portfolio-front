@@ -7,7 +7,7 @@ import { AuthContext } from "pages/_app";
 
 // 認証済みユーザーの名前やメールアドレスを表示
 const Home: React.FC = () => {
-  const { isSignedIn, currentUser } = useContext(AuthContext);
+  const { isSignedIn, currentUser, pythonData } = useContext(AuthContext);
   const { setIsSignedIn } = useContext(AuthContext);
   const router = useRouter();
 
@@ -17,14 +17,6 @@ const Home: React.FC = () => {
 
   const goToSignUpPage = () => {
     router.push("/users/auth/sign-up");
-  };
-
-  const goToTest1 = () => {
-    router.push("/home/testpage/test1");
-  };
-
-  const goToTest2 = () => {
-    router.push("/home/testpage/test2");
   };
 
   const handleSignOut = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -60,8 +52,12 @@ const Home: React.FC = () => {
           <h1>ホーム</h1>
           <h2>Email: {currentUser?.email}</h2>
           <h2>Name: {currentUser?.name}</h2>
-          <button onClick={goToTest1}>goToTest1</button>
-          <button onClick={goToTest2}>goToTest2</button>
+
+          <h3>
+            {pythonData.map((data) => {
+              <h3>{data}</h3>;
+            })}
+          </h3>
 
           <button onClick={handleSignOut}>サインアウト</button>
         </>
