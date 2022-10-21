@@ -33,17 +33,16 @@ const Home: React.FC = () => {
 
         router.push("/users/auth/sign-in");
 
-        // console.log("Succeeded in sign out");
+        console.log("Succeeded in sign out");
       } else {
-        // console.log("Failed in sign out");
+        console.log("Failed in sign out");
       }
     } catch (err) {
-      // console.log(err);
+      console.log(err);
     }
   };
 
-  // console.log(isSignedIn);
-  // console.log(currentUser);
+  console.log(currentUser);
 
   return (
     <>
@@ -53,11 +52,16 @@ const Home: React.FC = () => {
           <h2>Email: {currentUser?.email}</h2>
           <h2>Name: {currentUser?.name}</h2>
 
-          <h3>
-            {pythonData.map((data) => {
-              <h3>{data}</h3>;
-            })}
-          </h3>
+          {/* {pythonData ? (
+            <>
+              <p>スクレイピングデータ</p>
+              {pythonData.map((data) => (
+                <h3>{data}</h3>
+              ))}
+            </>
+          ) : (
+            <h3>取得したデータがありません</h3>
+          )} */}
 
           <button onClick={handleSignOut}>サインアウト</button>
         </>

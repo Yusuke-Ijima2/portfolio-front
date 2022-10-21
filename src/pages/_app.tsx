@@ -4,6 +4,7 @@ import { getCurrentUser } from "lib/api/auth";
 
 import { ScrapingData, User } from "types/index";
 import { pythonTest } from "lib/api/pythonTest";
+import { get } from "react-hook-form";
 
 // グローバルで扱う変数・関数
 export const AuthContext = createContext(
@@ -28,7 +29,7 @@ const App = ({ Component, pageProps }) => {
   // 認証済みのユーザーがいるかどうかチェック
   // 確認できた場合はそのユーザーの情報を取得
   const handleGetCurrentUser = async () => {
-    const res = await pythonTest();
+    const res = await getCurrentUser();
 
     if (res?.data.isLogin === true) {
       console.log(res.data);
@@ -41,10 +42,11 @@ const App = ({ Component, pageProps }) => {
   };
 
   const handleGetPythonData = async () => {
-    const res = await getCurrentUser();
+    const res = await pythonTest();
+    const scrapingData = res.data.data;
 
     if (res) {
-      setPythonData(res);
+      setPythonData(scrapingData);
     } else {
       console.log("No Scraping Data");
     }
