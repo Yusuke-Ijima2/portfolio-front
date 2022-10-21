@@ -5,6 +5,8 @@ import Cookies from "js-cookie";
 import { signOut } from "lib/api/auth";
 import { AuthContext } from "pages/_app";
 
+// import $ from "jquery";
+
 // 認証済みユーザーの名前やメールアドレスを表示
 const Home: React.FC = () => {
   const { isSignedIn, currentUser, pythonData } = useContext(AuthContext);
@@ -19,7 +21,7 @@ const Home: React.FC = () => {
     router.push("/users/auth/sign-up");
   };
 
-  const handleSignOut = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSignOut = async () => {
     try {
       const res = await signOut();
 
@@ -42,6 +44,22 @@ const Home: React.FC = () => {
     }
   };
 
+  // const onClickTest = () => {
+  //   $(function () {
+  //     $.ajax({
+  //       url: "main.py",
+  //       type: "post",
+  //       data: "送信メッセージ",
+  //     })
+  //       .done(function (data) {
+  //         console.log(data);
+  //       })
+  //       .fail(function () {
+  //         console.log("failed");
+  //       });
+  //   });
+  // };
+
   return (
     <>
       {isSignedIn && currentUser ? (
@@ -49,6 +67,7 @@ const Home: React.FC = () => {
           <h1>ホーム</h1>
           <h2>Email: {currentUser?.email}</h2>
           <h2>Name: {currentUser?.name}</h2>
+          {/* <button onClick={onClickTest}>test</button> */}
 
           {pythonData ? (
             <>

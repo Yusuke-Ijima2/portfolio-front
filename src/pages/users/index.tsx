@@ -1,5 +1,4 @@
 import { useState, useEffect, useContext } from "react";
-import { useRouter } from "next/router";
 
 import { userList } from "lib/api//user/crud";
 
@@ -14,23 +13,7 @@ const UserIndex: React.FC = () => {
     const getUserAll = async () => {
       const UserData: User[] | undefined = await userList();
       setAllUsers(UserData);
-
-      console.log(UserData);
-      // if (UserData) {
-      //   setAllUsers(UserData);
-      // } else {
-      //   router.push("/home");
-      // }
-      // try {
-      //   console.log(2);
-
-      //   const UserData: User[] | undefined = await userList();
-      //   setAllUsers(UserData);
-      // } catch (error) {
-      //   console.log(error);
-
-      //   router.push("/home");
-      // }
+      // console.log(UserData);
     };
 
     getUserAll();

@@ -4,7 +4,6 @@ import { getCurrentUser } from "lib/api/auth";
 
 import { ScrapingData, User } from "types/index";
 import { pythonTest } from "lib/api/pythonTest";
-import { get } from "react-hook-form";
 
 // グローバルで扱う変数・関数
 export const AuthContext = createContext(

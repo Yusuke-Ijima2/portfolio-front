@@ -40,7 +40,7 @@ const SignIn: React.FC = () => {
 
         router.push("/home");
 
-        // console.log("Signed in successfully!");
+        console.log("Signed in successfully!");
       } else {
         setAlertMessageOpen(true);
       }
