@@ -26,3 +26,7 @@ export type User = {
   updated_at: Date;
   errors: string;
 };
+
+export type ScrapingData = {
+  data: string[];
+};

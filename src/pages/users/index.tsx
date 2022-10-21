@@ -32,19 +32,9 @@ const UserIndex: React.FC = () => {
       //   router.push("/home");
       // }
     };
-    // console.log(11);
 
     getUserAll();
   }, []);
-
-  // useEffect(() => {
-  //   const getUserAll = async () => {
-  //     const UserData: User[] | undefined = await userList();
-  //     setAllUsers(UserData);
-  //   };
-  //   getUserAll();
-  // }, []);
-  // console.log(users);
 
   return (
     <>
