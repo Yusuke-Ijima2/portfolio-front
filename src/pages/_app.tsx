@@ -32,7 +32,6 @@ const App = ({ Component, pageProps }) => {
     const res = await getCurrentUser();
 
     if (res?.data.isLogin === true) {
-      console.log(res.data);
       setIsSignedIn(true);
       setCurrentUser(res.data.data);
     } else {

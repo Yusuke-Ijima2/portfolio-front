@@ -42,8 +42,6 @@ const Home: React.FC = () => {
     }
   };
 
-  console.log(currentUser);
-
   return (
     <>
       {isSignedIn && currentUser ? (
@@ -52,16 +50,16 @@ const Home: React.FC = () => {
           <h2>Email: {currentUser?.email}</h2>
           <h2>Name: {currentUser?.name}</h2>
 
-          {/* {pythonData ? (
+          {pythonData ? (
             <>
               <p>スクレイピングデータ</p>
-              {pythonData.map((data) => (
-                <h3>{data}</h3>
+              {pythonData.map((data, i) => (
+                <h3 key={i}>{data}</h3>
               ))}
             </>
           ) : (
             <h3>取得したデータがありません</h3>
-          )} */}
+          )}
 
           <button onClick={handleSignOut}>サインアウト</button>
         </>
