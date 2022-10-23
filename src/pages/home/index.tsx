@@ -22,9 +22,11 @@ const Home: React.FC = () => {
   };
 
   const handleSignOut = async () => {
+    //asyncを使うときはtry,catchでエラーハンドリングできる
     try {
-      const res = await signOut();
+      const res = await signOut(); //非同期処理でsignOut()が実行し終わるまで待っている
 
+      //resにAPIの値が代入されたら順番に処理される
       if (res.data.success === true) {
         // サインアウト時には各Cookieを削除
         Cookies.remove("_access_token");
