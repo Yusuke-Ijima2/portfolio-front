@@ -8,8 +8,8 @@ import { pythonTest } from "lib/api/pythonTest";
 // グローバルで扱う変数・関数
 export const AuthContext = createContext(
   {} as {
-    loading: boolean;
-    setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+    isLoading: boolean;
+    setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
     isSignedIn: boolean;
     setIsSignedIn: React.Dispatch<React.SetStateAction<boolean>>;
     currentUser: User | undefined;
@@ -20,7 +20,7 @@ export const AuthContext = createContext(
 );
 
 const App = ({ Component, pageProps }) => {
-  const [loading, setLoading] = useState<boolean>(true); //現在使ってない
+  const [isLoading, setIsLoading] = useState<boolean>(true); //現在使ってない
   const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
   const [currentUser, setCurrentUser] = useState<User | undefined>();
   const [pythonData, setPythonData] = useState<ScrapingData | undefined>();
@@ -36,7 +36,7 @@ const App = ({ Component, pageProps }) => {
     } else {
       console.log("No current user");
     }
-    setLoading(false);
+    setIsLoading(false);
   };
 
   const handleGetPythonData = async () => {
@@ -48,7 +48,7 @@ const App = ({ Component, pageProps }) => {
     } else {
       console.log("No Scraping Data");
     }
-    setLoading(false);
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -59,8 +59,8 @@ const App = ({ Component, pageProps }) => {
   return (
     <AuthContext.Provider
       value={{
-        loading,
-        setLoading,
+        isLoading,
+        setIsLoading,
         isSignedIn,
         setIsSignedIn,
         currentUser,

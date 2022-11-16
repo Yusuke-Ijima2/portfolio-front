@@ -4,12 +4,14 @@ import Cookies from "js-cookie";
 
 import { signOut } from "lib/api/auth";
 import { AuthContext } from "pages/_app";
+import Loading from "components/Loading/loading";
 
 // import $ from "jquery";
 
 // 認証済みユーザーの名前やメールアドレスを表示
 const Home: React.FC = () => {
-  const { isSignedIn, currentUser, pythonData } = useContext(AuthContext);
+  const { isSignedIn, currentUser, pythonData, isLoading } =
+    useContext(AuthContext);
   const { setIsSignedIn } = useContext(AuthContext);
   const router = useRouter();
 
@@ -46,25 +48,11 @@ const Home: React.FC = () => {
     }
   };
 
-  // const onClickTest = () => {
-  //   $(function () {
-  //     $.ajax({
-  //       url: "main.py",
-  //       type: "post",
-  //       data: "送信メッセージ",
-  //     })
-  //       .done(function (data) {
-  //         console.log(data);
-  //       })
-  //       .fail(function () {
-  //         console.log("failed");
-  //       });
-  //   });
-  // };
-
   return (
     <>
-      {isSignedIn && currentUser ? (
+      {isLoading ? (
+        <Loading />
+      ) : isSignedIn && currentUser ? (
         <>
           <h1>ホーム</h1>
           <h2>Email: {currentUser?.email}</h2>
